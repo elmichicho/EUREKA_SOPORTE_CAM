@@ -1,41 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página HTML Sencilla</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardar y Ver en JSON</title>
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a mi página web prueb     dsdsdsdsda</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis vel laborum libero, voluptates velit assumenda non autem natus porro neque cumque commodi beatae nihil quia eligendi quod, aliquam vitae eum!</p>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#sobre-mi">Sobre mí</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-    
-    <section id="inicio">
-        <h2>Inicio</h2>
-        <p>Esta es una página web de ejemplo con un HTML muy sencillo.</p>
-    </section>
-    
-    <section id="sobre-mi">
-        <h2>Sobre mí</h2>
-        <p>Hola, soy un desarrollador web y este es un ejemplo básico de una página web.</p>
-    </section>
-    
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Puedes contactarme a través del siguiente correo electrónico: <a href="mailto:ejemplo@correo.com">ejemplo@correo.com</a></p>
-    </section>
-    
-    <footer>
-        <p>&copy; 2024 Mi Página Web</p>
-    </footer>
+    <h2>Guardar y Ver en JSON</h2>
+    <label for="texto">Ingrese un texto:</label>
+    <input type="text" id="texto">
+    <button onclick="guardarEnJSON()">Guardar en JSON</button>
+    <br><br>
+    <button onclick="verJSON()">Ver JSON</button>
+
+    <pre id="jsonOutput"></pre>
+
+    <script>
+        // Array donde se almacenarán los datos ingresados
+        let datos = [];
+
+        // Función para guardar el texto ingresado en el JSON
+        function guardarEnJSON() {
+            let textoInput = document.getElementById('texto').value;
+            datos.push({ texto: textoInput });
+            guardarDatosEnLocalStorage();
+        }
+
+        // Función para guardar los datos en el localStorage
+        function guardarDatosEnLocalStorage() {
+            localStorage.setItem('datos', JSON.stringify(datos));
+        }
+
+        // Función para mostrar los datos almacenados en el JSON
+        function verJSON() {
+            let datosGuardados = localStorage.getItem('datos');
+            let jsonOutput = document.getElementById('jsonOutput');
+            if (datosGuardados) {
+                jsonOutput.textContent = JSON.stringify(JSON.parse(datosGuardados), null, 2);
+            } else {
+                jsonOutput.textContent = "No hay datos almacenados.";
+            }
+        }
+    </script>
 </body>
 </html>
